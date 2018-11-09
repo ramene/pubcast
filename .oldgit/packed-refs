@@ -1,5 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-679963cfadb22574f27c295879c0245fa90f0229 refs/remotes/origin/feature/docker
-9ac9c844cccacc99fe6368f6357a5f6e7a32bbdb refs/remotes/origin/feature/heroku
-78de07b6e508d1c593a734bc83cb7d84a9dd1839 refs/remotes/origin/master
-bea3f7e27c87d4f7c68a4e1f9d7fed0137952c5b refs/remotes/origin/refactor/no-go-fed
