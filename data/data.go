@@ -2,7 +2,6 @@ package data
 
 import (
 	"database/sql"
-    "log"
     "fmt"
 
     "github.com/DATA-DOG/go-txdb"
@@ -108,13 +107,13 @@ func NewTestDB() (pg dbPool, err error) {
 	}
 
 	pg.Db = db
-	return db, nil
+	return
 }
 
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
 // Call this if you're using data.pool somewhere inside a function and want your test
 // to use our test db.
-func ConnectToTestDB() (*sql.DB, error) {
+func ConnectToTestDB() (*sql.DB, err error) {
     db, err := NewTestDB()
     if err != nil {
 		err = errors.Wrapf(err,
@@ -122,8 +121,10 @@ func ConnectToTestDB() (*sql.DB, error) {
 				spew.Sdump(err))
 		return
 	}
-
-	fmt.Println("Connection successful.")
+	
+	return db
+	
+	// fmt.Println("Connection successful.")
 
 	// pool = db
 	// return db, nil
