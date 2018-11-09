@@ -113,15 +113,16 @@ func NewTestDB() (pg dbPool, err error) {
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
 // Call this if you're using data.pool somewhere inside a function and want your test
 // to use our test db.
-func ConnectToTestDB() (*sql.DB, error) {
+func ConnectToTestDB() {
+
     db, err := NewTestDB()
     if err != nil {
 		err = errors.Wrapf(err,
 			"Couldn't open connection to postgre database (%s)",
-			spew.Sdump(err))
+			spew.Sdump(db))
 	}
-	
-	return
+
+	fmt.Println("Connection successful.")
 }
 
 func (r *dbPool) Close() (err error) {
