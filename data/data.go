@@ -86,21 +86,22 @@ func SetupTestDB() {
 //	return sql.Open("txdb", "identifier")
 //}
 
-func NewTestDB() (*sql.DB, error) {
+func NewTestDB() (*sql.DB, err error) {
 
 	// The first argument corresponds to the driver name that the driver
 	// (in this case, `lib/pq`) used to register itself in `database/sql`.
 	// The next argument specifies the parameters to be used in the connection.
 	// Details about this string can be seen at https://godoc.org/github.com/lib/pq
-	return sql.Open("txdb", "twelve")
 	
-	// db, err := sql.Open("txdb", "twelve")
-	// if err != nil {
-	// 		err = errors.Wrapf(err,
-	// 				"Couldn't open connection to postgre database (%s)",
-	// 				spew.Sdump(err))
-	// 		return
-	// }
+	// return sql.Open("txdb", "twelve")
+	
+	db, err := sql.Open("txdb", "twelve")
+	if err != nil {
+		err = errors.Wrapf(err,
+				"Couldn't open connection to postgre database (%s)",
+				spew.Sdump(err))
+		return
+	}
 
 	// // Ping verifies if the connection to the database is alive or if a
 	// // new connection can be made.
@@ -112,7 +113,7 @@ func NewTestDB() (*sql.DB, error) {
 	// }
 
 	// activitypool.Db = db
-	// return
+	return db, nil
 }
 
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
