@@ -28,7 +28,7 @@ pubcast
 metapods
 
 # vendor dir
-vendor/
+vendor/**
 
 # ide project files
 .idea/
