@@ -37,13 +37,13 @@ type ActivityPub struct {
 }
 
 // GetPool is a safer interface for accessing the Pool
-func GetPool() (t dbPool, error)  {
-	if t.Db == nil {
-		panic("GetPool was used before the dbPool was defined.")
-	}
+// func GetPool() (t dbPool, error)  {
+// 	if t.Db == nil {
+// 		panic("GetPool was used before the dbPool was defined.")
+// 	}
 	
-	return t.Db
-}
+// 	return t.Db
+// }
 
 // NewDB opens a standard DB
 func NewDB() (*sql.DB, error) {
