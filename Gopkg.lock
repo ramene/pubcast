@@ -153,7 +153,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:610ab0f85426a43f55c6cec2b85d5c325e43769ef00e006ddba91d32f784757b"
+  digest = "1:1976b609abe0498b456629f6e6bff46274ff4c6b6361aeacf96a79794c9b04d9"
   name = "github.com/ramene/pubcast"
   packages = [
     "config",
@@ -165,7 +165,7 @@
     "lib/activity",
   ]
   pruneopts = "UT"
-  revision = "19eb88461b428fe0d982e4633e5d7b51916e927a"
+  revision = "c240643c77a5d575605658430c9c96a0c9703821"
 
 [[projects]]
   digest = "1:69b1cc331fca23d702bd72f860c6a647afd0aa9fcbc1d0659b1365e26546dd70"

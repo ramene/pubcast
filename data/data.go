@@ -123,6 +123,8 @@ func ConnectToTestDB() (*sql.DB, err error) {
 		return
 	}
 
+	fmt.Println("Connection successful.")
+
 	// pool = db
 	// return db, nil
 }
