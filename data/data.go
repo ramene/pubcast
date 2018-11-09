@@ -114,7 +114,7 @@ func NewTestDB() (pg dbPool, err error) {
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
 // Call this if you're using data.pool somewhere inside a function and want your test
 // to use our test db.
-func ConnectToTestDB() (*sql.DB, err error) {
+func ConnectToTestDB() (*sql.DB, error) {
     db, err := NewTestDB()
     if err != nil {
 		err = errors.Wrapf(err,
