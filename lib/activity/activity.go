@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/pubcast/pubcast/config"
-	"github.com/pubcast/pubcast/data"
-	"github.com/pubcast/pubcast/data/models"
+	"github.com/ramene/pubcast/config"
+	"github.com/ramene/pubcast/data"
+	"github.com/ramene/pubcast/data/models"
 	"github.com/spf13/viper"
 )
 

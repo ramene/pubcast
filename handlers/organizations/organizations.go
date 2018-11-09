@@ -6,10 +6,10 @@ import (
 	"net/url"
 
 	"github.com/gorilla/mux"
-	"github.com/pubcast/pubcast/data"
-	"github.com/pubcast/pubcast/data/models"
-	"github.com/pubcast/pubcast/handlers"
-	"github.com/pubcast/pubcast/lib/activity"
+	"github.com/ramene/pubcast/data"
+	"github.com/ramene/pubcast/data/models"
+	"github.com/ramene/pubcast/handlers"
+	"github.com/ramene/pubcast/lib/activity"
 )
 
 // Get returns an Organization

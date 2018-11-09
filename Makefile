@@ -21,6 +21,7 @@ $(GOPATH)/bin/dep:
 # ----- Database ----- # 
 
 # Installs our db migration tool
+# https://github.com/golang-migrate/migrate/tree/master/cli
 $(GOPATH)/bin/migrate: $(GOPATH)/bin/dep
 	@go get -u github.com/lib/pq
 	@go get -u github.com/golang-migrate/migrate/cli
@@ -42,9 +43,11 @@ database:
 .PHONY: migrate-up
 migrate-up: database $(GOPATH)/bin/migrate
 	# We use ?sslmode=disable to accommodate for crappy brew installs
-	migrate -source file://data/migrations -database postgres://localhost:5432/pubcast?sslmode=disable up
-	migrate -source file://data/migrations -database postgres://localhost:5432/pubcast_test?sslmode=disable up
+	migrate -source file://data/migrations -database postgres://postgres:postgres@postgres:5432/pubcast?sslmode=disable up
+	migrate -source file://data/migrations -database postgres://postgres:postgres@postgres:5432/pubcast_test?sslmode=disable up
 	@echo "✨ Finished."
+
+	#  psql postgres://postgres:postgres@postgres:5432/pubcast?sslmode=disable
 
 # Removes the current connected databases
 .PHONY: drop-database

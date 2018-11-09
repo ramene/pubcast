@@ -7,8 +7,8 @@ import (
 
 	"github.com/gorilla/mux"
 	negronilogrus "github.com/meatballhat/negroni-logrus"
-	"github.com/pubcast/pubcast/handlers/organizations"
-	"github.com/pubcast/pubcast/handlers/webfinger"
+	"github.com/ramene/pubcast/handlers/organizations"
+	"github.com/ramene/pubcast/handlers/webfinger"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
 )
@@ -30,7 +30,7 @@ func main() {
 	n.UseHandler(r)
 
 	// Add support for PORT env
-	port := "8080"
+	port := "8083"
 	if fromEnv := os.Getenv("PORT"); fromEnv != "" {
 		port = fromEnv
 	}

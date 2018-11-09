@@ -12,9 +12,9 @@ import (
 	"net/mail"
 	"strings"
 
-	"github.com/pubcast/pubcast/data"
-	"github.com/pubcast/pubcast/data/models"
-	"github.com/pubcast/pubcast/handlers"
+	"github.com/ramene/pubcast/data"
+	"github.com/ramene/pubcast/data/models"
+	"github.com/ramene/pubcast/handlers"
 )
 
 type badAddressError struct {

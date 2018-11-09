@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-	"github.com/pubcast/pubcast/data"
+	"github.com/ramene/pubcast/data"
 	"github.com/stretchr/testify/assert"
 )
 

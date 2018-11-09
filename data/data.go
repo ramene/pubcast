@@ -1,7 +1,7 @@
 package data
 
 import (
-    "database/sql"
+	"database/sql"
     "log"
     "fmt"
 
