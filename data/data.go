@@ -92,8 +92,8 @@ func NewTestDB() (pg dbPool, err error) {
 	db, err := sql.Open("txdb", "twelve")
 	if err != nil {
 		err = errors.Wrapf(err,
-				"Couldn't open connection to postgre database (%s)",
-				spew.Sdump(err))
+			"Couldn't open connection to postgre database (%s)",
+			spew.Sdump(err))
 		return
 	}
 
@@ -101,8 +101,8 @@ func NewTestDB() (pg dbPool, err error) {
 	// new connection can be made.
 	if err = db.Ping(); err != nil {
 			err = errors.Wrapf(err,
-					"Couldn't ping postgre database (%s)",
-					spew.Sdump(err))
+				"Couldn't ping postgre database (%s)",
+				spew.Sdump(err))
 			return
 	}
 
@@ -117,14 +117,11 @@ func ConnectToTestDB() (*sql.DB, error) {
     db, err := NewTestDB()
     if err != nil {
 		err = errors.Wrapf(err,
-				"Couldn't open connection to postgre database (%s)",
-				spew.Sdump(err))
-		return
+			"Couldn't open connection to postgre database (%s)",
+			spew.Sdump(err))
 	}
 	
-	return db
-	
-	// fmt.Println("Connection successful.")
+	fmt.Println("Connection successful.")
 
 	// pool = db
 	// return db, nil
