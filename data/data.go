@@ -37,7 +37,7 @@ type ActivityPub struct {
 }
 
 // GetPool is a safer interface for accessing the Pool
-func GetPool() (t dbPool, err error)  {
+func GetPool() (t dbPool, error)  {
 	if t.Db == nil {
 		panic("GetPool was used before the dbPool was defined.")
 	}
@@ -86,7 +86,7 @@ func SetupTestDB() {
 //	return sql.Open("txdb", "identifier")
 //}
 
-func NewTestDB() (*sql.DB, err error) {
+func NewTestDB() (*sql.DB, error) {
 
 	// The first argument corresponds to the driver name that the driver
 	// (in this case, `lib/pq`) used to register itself in `database/sql`.
