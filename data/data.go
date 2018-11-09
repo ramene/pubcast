@@ -1,44 +1,63 @@
 package data
 
 import (
-	"database/sql"
-	"fmt"
+    "database/sql"
+    "log"
+    "fmt"
 
-	// TODO: move this to a main package
-	txdb "github.com/DATA-DOG/go-txdb"
-	_ "github.com/lib/pq"
+    "github.com/DATA-DOG/go-txdb"
+    "github.com/davecgh/go-spew/spew"
+    "github.com/pkg/errors"
+
+    // Using the blank identifier in order to solely
+    // provide the side-effects of the package.
+    // Eseentially the side effect is calling the `init()`
+    // method of `lib/pq`:
+    //  func init () {  sql.Register("postgres", &Driver{} }
+    // which you can see at `github.com/lib/pq/conn.go`
+    _ "github.com/lib/pq"
 )
 
-var (
-	// pool is the pool opened for the database
-	pool *sql.DB
-)
+// Roach holds the connection pool to the database - created by a configuration
+// object (`Config`).
+type dbPool struct {
+	// Db holds a sql.DB pointer that represents a pool of zero or more
+	// underlying connections - safe for concurrent use by multiple
+	// goroutines -, with freeing/creation of new connections all managed
+	// by `sql/database` package.
+	Db  *sql.DB
+	cfg ActivityPub
+}
+
+type ActivityPub struct {
+	host            string
+	port            int
+	username        string
+	password        string
+}
 
 // GetPool is a safer interface for accessing the Pool
-func GetPool() *sql.DB {
-	if pool == nil {
-		panic("GetPool() was used before the data.pool was defined." +
-			" In other words, we can't connect to the database!" +
-			" If this is happening in a test, did you use SetupTestDB() and" +
-			" maybe ConnectToTestDB() in your func init()?")
+func GetPool() (t dbPool, err error)  {
+	if t.Db == nil {
+		panic("GetPool was used before the dbPool was defined.")
 	}
-
-	return pool
+	
+	return t.Db
 }
 
 // NewDB opens a standard DB
 func NewDB() (*sql.DB, error) {
-
 	const (
-		host   = "localhost"
+		host   = "postgres"
 		port   = 5432
 		user   = "postgres"
+		password = "postgres"
 		dbname = "pubcast"
 	)
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"dbname=%s sslmode=disable",
-		host, port, user, dbname)
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
 
 	return sql.Open("postgres", psqlInfo)
 }
@@ -46,43 +65,80 @@ func NewDB() (*sql.DB, error) {
 // SetupTestDB is used to setup a transactional database.
 // Use it inside of an `init` function in a test file.
 func SetupTestDB() {
-	const (
-		host   = "localhost"
-		port   = 5432
-		user   = "postgres"
-		dbname = "pubcast_test"
-	)
+    const (
+        host   = "postgres"
+        port   = 5432
+        user   = "postgres"
+        password = "postgres"
+        dbname = "pubcast_test"
+    )
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"dbname=%s sslmode=disable",
-		host, port, user, dbname)
+    psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+        "password=%s dbname=%s sslmode=disable",
+        host, port, user, password, dbname)
 
-	// Don't register the transactional db driver
-	// if we've already registered it somewhere
-	for _, driver := range sql.Drivers() {
-		if driver == "txdb" {
-			return
-		}
-	}
-
-	// we register an sql driver named "txdb"
-	txdb.Register("txdb", "postgres", psqlInfo)
+        // we register an sql driver named "txdb"
+        txdb.Register("txdb", "postgres", psqlInfo)
 }
 
 // NewTestDB creates a new of the test database
-func NewTestDB() (*sql.DB, error) {
-	return sql.Open("txdb", "identifier")
+// func NewTestDB() (*sql.DB, error) {
+//	return sql.Open("txdb", "identifier")
+//}
+
+func NewTestDB() (*sql.DB, err error) {
+
+	// The first argument corresponds to the driver name that the driver
+	// (in this case, `lib/pq`) used to register itself in `database/sql`.
+	// The next argument specifies the parameters to be used in the connection.
+	// Details about this string can be seen at https://godoc.org/github.com/lib/pq
+	return sql.Open("txdb", "twelve")
+	
+	// db, err := sql.Open("txdb", "twelve")
+	// if err != nil {
+	// 		err = errors.Wrapf(err,
+	// 				"Couldn't open connection to postgre database (%s)",
+	// 				spew.Sdump(err))
+	// 		return
+	// }
+
+	// // Ping verifies if the connection to the database is alive or if a
+	// // new connection can be made.
+	// if err = db.Ping(); err != nil {
+	// 		err = errors.Wrapf(err,
+	// 				"Couldn't ping postgre database (%s)",
+	// 				spew.Sdump(err))
+	// 		return
+	// }
+
+	// activitypool.Db = db
+	// return
 }
 
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
 // Call this if you're using data.pool somewhere inside a function and want your test
 // to use our test db.
-func ConnectToTestDB() (*sql.DB, error) {
-	db, err := NewTestDB()
-	if err != nil {
-		return db, err
+func ConnectToTestDB() (activitypool dbPool, err error) {
+    db, err := NewTestDB()
+    if err != nil {
+		err = errors.Wrapf(err,
+				"Couldn't open connection to postgre database (%s)",
+				spew.Sdump(err))
+		return
 	}
 
-	pool = db
+	// Ping verifies if the connection to the database is alive or if a
+	// new connection can be made.
+	if err = db.Ping(); err != nil {
+		err = errors.Wrapf(err,
+				"Couldn't ping postgre database (%s)",
+				spew.Sdump(err))
+		return
+	}
+
+	activitypool.Db = db
 	return db, nil
+
+	// pool = db
+	// return db, nil
 }
