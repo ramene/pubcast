@@ -121,8 +121,19 @@ func ConnectToTestDB() (*sql.DB, error) {
 			spew.Sdump(err))
 	}
 	
-	fmt.Println("Connection successful.")
+	return
+}
 
-	// pool = db
-	// return db, nil
+func (r *dbPool) Close() (err error) {
+	if r.Db == nil {
+		return
+	}
+
+	if err = r.Db.Close(); err != nil {
+		err = errors.Wrapf(err,
+			"Errored closing database connection",
+			spew.Sdump(r.cfg))
+	}
+
+	return
 }
