@@ -36,9 +36,16 @@ type ActivityPub struct {
 }
 
 // GetPool is a safer interface for accessing the Pool
-func GetPool() (s *dbPool, error)  {
+// func GetPool() (s *dbPool, error)  {
+func (s *dbPool) GetPool() (err error) {
 	if s.Db == nil {
-		panic("GetPool was used before the dbPool was defined.")
+		return
+	}
+
+	if err != nil {
+		err = errors.Wrapf(err,
+			"GetPool took a shit! Couldn't open connection to postgre database (%s)",
+			spew.Sdump(s.Db))
 	}
 
 	return
