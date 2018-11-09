@@ -81,12 +81,7 @@ func SetupTestDB() {
         txdb.Register("txdb", "postgres", psqlInfo)
 }
 
-// NewTestDB creates a new of the test database
-// func NewTestDB() (*sql.DB, error) {
-//	return sql.Open("txdb", "identifier")
-//}
-
-func NewTestDB() (*sql.DB, err error) {
+func NewTestDB() (pg dbPool, err error) {
 
 	// The first argument corresponds to the driver name that the driver
 	// (in this case, `lib/pq`) used to register itself in `database/sql`.
@@ -103,23 +98,23 @@ func NewTestDB() (*sql.DB, err error) {
 		return
 	}
 
-	// // Ping verifies if the connection to the database is alive or if a
-	// // new connection can be made.
-	// if err = db.Ping(); err != nil {
-	// 		err = errors.Wrapf(err,
-	// 				"Couldn't ping postgre database (%s)",
-	// 				spew.Sdump(err))
-	// 		return
-	// }
+	// Ping verifies if the connection to the database is alive or if a
+	// new connection can be made.
+	if err = db.Ping(); err != nil {
+			err = errors.Wrapf(err,
+					"Couldn't ping postgre database (%s)",
+					spew.Sdump(err))
+			return
+	}
 
-	// activitypool.Db = db
+	pg.Db = db
 	return db, nil
 }
 
 // ConnectToTestDB creates a new test db pool and sets it to data.pool
 // Call this if you're using data.pool somewhere inside a function and want your test
 // to use our test db.
-func ConnectToTestDB() (activitypool dbPool, err error) {
+func ConnectToTestDB() (*sql.DB, err error) {
     db, err := NewTestDB()
     if err != nil {
 		err = errors.Wrapf(err,
@@ -127,18 +122,6 @@ func ConnectToTestDB() (activitypool dbPool, err error) {
 				spew.Sdump(err))
 		return
 	}
-
-	// Ping verifies if the connection to the database is alive or if a
-	// new connection can be made.
-	if err = db.Ping(); err != nil {
-		err = errors.Wrapf(err,
-				"Couldn't ping postgre database (%s)",
-				spew.Sdump(err))
-		return
-	}
-
-	activitypool.Db = db
-	return db, nil
 
 	// pool = db
 	// return db, nil
