@@ -10,6 +10,8 @@ import (
 	"github.com/ramene/pubcast/data"
 	// "github.com/ramene/pubcast/data/models"
 	"github.com/spf13/viper"
+    "github.com/pkg/errors"
+
 )
 
 // RWType determines if the type of the object is read only or read-write
