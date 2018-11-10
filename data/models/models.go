@@ -5,7 +5,18 @@ import (
 	"time"
 
 	slugify "github.com/gosimple/slug"
+	data "github.com/ramene/pubcast/data"
 )
+
+// EventsTable holds the internals of the table, i.e,
+// the manager of this instance's database pool (Roach).
+// Here you could also add things like a `logger` with
+// some predefined fields (for structured logging with
+// context).
+type EventsTable struct {
+	data *data.dbPool
+}
+
 
 // Group is a collection of Organizations
 // Refers to the https://www.w3.org/TR/activitystreams-vocabulary/#dfn-group
