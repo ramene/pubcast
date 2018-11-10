@@ -36,7 +36,7 @@ func Has(id *url.URL) (bool, error) {
 		return false, nil
 	}
 
-	group, err := models.GetGroup(data.GetPool(), getSlug(id))
+	group, err := models.GetGroup(data.NewTestDB(), getSlug(id))
 	if err != nil {
 		return false, err
 	}
