@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/ramene/pubcast/config"
-	// "github.com/ramene/pubcast/data"
+	"github.com/ramene/pubcast/data"
 	// "github.com/ramene/pubcast/data/models"
 	"github.com/spf13/viper"
 )

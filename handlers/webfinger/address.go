@@ -12,8 +12,8 @@ import (
 	"net/mail"
 	"strings"
 
-	"github.com/ramene/pubcast/data"
-	"github.com/ramene/pubcast/data/models"
+	// "github.com/ramene/pubcast/data"
+	// "github.com/ramene/pubcast/data/models"
 	"github.com/ramene/pubcast/handlers"
 )
 
@@ -54,13 +54,13 @@ func atAddress(address string) (*Actor, error) {
 	//   and then just return a reference so we can get it again?"
 	//
 	// You would be right.
-	org, err := models.GetOrganization(data.GetPool(), slug)
-	if err != nil {
-		return nil, err
-	}
-	if org == nil {
-		return nil, nil
-	}
+	// org, err := models.GetOrganization(data.GetPool(), slug)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// if org == nil {
+	// 	return nil, nil
+	// }
 
 	domain := handlers.GetFullHostname()
 
