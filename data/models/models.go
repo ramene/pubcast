@@ -5,7 +5,7 @@ import (
 	"time"
 
 	slugify "github.com/gosimple/slug"
-	pool "github.com/ramene/pubcast/data"
+	data "github.com/ramene/pubcast/data"
 )
 
 // EventsTable holds the internals of the table, i.e,
