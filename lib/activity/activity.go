@@ -27,6 +27,15 @@ type EventsTableConfig struct {
 	ActivityPool *data.ActivityPool
 }
 
+// EventRow represents in a `struct` the information we
+// can get from the table (some fields are insertable but
+// not all - ID and CreatedAt are generated when we `insert`,
+// thus, these can only be retrieved).
+type EventRow struct {
+	Id        int64
+	Type      string
+	CreatedAt time.Time
+}
 
 const (
 	// Read indicates the object is only being read.
@@ -45,20 +54,29 @@ func Owns(id *url.URL) bool {
 
 // Has determines if the app has ActivityStream data at the IRI (Internationalized Resource ID)
 // We expect IRIs to have a path like `/activity/<object>/<value>/<inbox|outbox>`
-func Has(id *url.URL) (bool, error) {
-	if !matchesURLSpec(id) {
-		return false, nil
+// func Has(id *url.URL) (bool, error) {
+// 	if !matchesURLSpec(id) {
+// 		return false, nil
+// 	}
+
+// 	group, err := models.GetGroup(data.NewDB(), getSlug(id))
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	if group == nil {
+// 		return false, nil
+// 	}
+
+// 	return true, nil
+// }
+
+func (table *EventsTable) GetEventsByType(eventType string) (rows []EventRow, err error) {
+	if eventType == "" {
+		err = errors.Errorf("Can't get event rows with empty type")
+		return
 	}
 
-	group, err := models.GetGroup(data.NewDB(), getSlug(id))
-	if err != nil {
-		return false, err
-	}
-	if group == nil {
-		return false, nil
-	}
-
-	return true, nil
+	return
 }
 
 // Deletes empty strings from an array of strings
