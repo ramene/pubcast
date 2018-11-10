@@ -14,7 +14,7 @@ import (
 // some predefined fields (for structured logging with
 // context).
 type EventsTable struct {
-	data *data.dbPool
+	data *dbPool
 }
 
 
