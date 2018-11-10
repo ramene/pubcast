@@ -14,6 +14,20 @@ import (
 // RWType determines if the type of the object is read only or read-write
 type RWType bool
 
+// EventsTable holds the internals of the table, i.e,
+// the manager of this instance's database pool (Roach).
+// Here you could also add things like a `logger` with
+// some predefined fields (for structured logging with
+// context).
+type EventsTable struct {
+	pool *data.ActivityPool
+}
+
+type EventsTableConfig struct {
+	ActivityPool *data.ActivityPool
+}
+
+
 const (
 	// Read indicates the object is only being read.
 	Read RWType = false

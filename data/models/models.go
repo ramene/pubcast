@@ -5,7 +5,7 @@ import (
 	"time"
 
 	slugify "github.com/gosimple/slug"
-	data "github.com/ramene/pubcast/data"
+	// data "github.com/ramene/pubcast/data"
 )
 
 // EventsTable holds the internals of the table, i.e,
@@ -13,9 +13,9 @@ import (
 // Here you could also add things like a `logger` with
 // some predefined fields (for structured logging with
 // context).
-type EventsTable struct {
-	pool *data.ActivityPool
-}
+// type EventsTable struct {
+// 	pool *data.ActivityPool
+// }
 
 
 // Group is a collection of Organizations
