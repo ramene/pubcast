@@ -17,8 +17,8 @@ import (
     _ "github.com/lib/pq"
 )
 
-// dbPool holds the connection pool to the database
-type dbPool struct {
+// ActivityPool holds the connection pool to the database
+type ActivityPool struct {
 	// Db holds a sql.DB pointer that represents a pool of zero or more
 	// underlying connections - safe for concurrent use by multiple
 	// goroutines -, with freeing/creation of new connections all managed
@@ -34,7 +34,7 @@ type ActivityPub struct {
 	password        string
 }
 
-func GetPool() (s *dbPool, err error) {
+func GetPool() (s *ActivityPool, err error) {
 	if s.Db == nil {
 		return
 	}
@@ -84,7 +84,7 @@ func SetupTestDB() {
         txdb.Register("txdb", "postgres", psqlInfo)
 }
 
-func NewTestDB() (pg dbPool, err error) {
+func NewTestDB() (pool ActivityPool, err error) {
 
 	// The first argument corresponds to the driver name that the driver
 	// (in this case, `lib/pq`) used to register itself in `database/sql`.
@@ -110,12 +110,12 @@ func NewTestDB() (pg dbPool, err error) {
 			return
 	}
 
-	pg.Db = db
+	pool.Db = db
 	return
 }
 
-// ConnectToTestDB creates a new test db pool and sets it to our data pool dbPool
-// Call this if you're using dbPool somewhere inside a function and want your test
+// ConnectToTestDB creates a new test db pool and sets it to our data pool ActivityPool
+// Call this if you're using ActivityPool somewhere inside a function and want your test
 // to use our test db.
 func ConnectToTestDB() {
 
@@ -129,7 +129,7 @@ func ConnectToTestDB() {
 	fmt.Println("Connection successful.")
 }
 
-func (r *dbPool) Close() (err error) {
+func (r *ActivityPool) Close() (err error) {
 	if r.Db == nil {
 		return
 	}

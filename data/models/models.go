@@ -5,7 +5,7 @@ import (
 	"time"
 
 	slugify "github.com/gosimple/slug"
-	data "github.com/ramene/pubcast/data"
+	pool "github.com/ramene/pubcast/data"
 )
 
 // EventsTable holds the internals of the table, i.e,
@@ -14,7 +14,7 @@ import (
 // some predefined fields (for structured logging with
 // context).
 type EventsTable struct {
-	data *data.dbPool
+	pool *data.ActivityPool
 }
 
 
