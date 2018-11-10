@@ -17,8 +17,7 @@ import (
     _ "github.com/lib/pq"
 )
 
-// Roach holds the connection pool to the database - created by a configuration
-// object (`Config`).
+// dbPool holds the connection pool to the database
 type dbPool struct {
 	// Db holds a sql.DB pointer that represents a pool of zero or more
 	// underlying connections - safe for concurrent use by multiple
@@ -35,8 +34,6 @@ type ActivityPub struct {
 	password        string
 }
 
-// GetPool is a safer interface for accessing the Pool
-// func GetPool() (s *dbPool, error)  {
 func GetPool() (s *dbPool, err error) {
 	if s.Db == nil {
 		return
@@ -117,8 +114,8 @@ func NewTestDB() (pg dbPool, err error) {
 	return
 }
 
-// ConnectToTestDB creates a new test db pool and sets it to data.pool
-// Call this if you're using data.pool somewhere inside a function and want your test
+// ConnectToTestDB creates a new test db pool and sets it to our data pool dbPool
+// Call this if you're using dbPool somewhere inside a function and want your test
 // to use our test db.
 func ConnectToTestDB() {
 
