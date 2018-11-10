@@ -44,7 +44,7 @@ func GetPool() (s *dbPool, err error) {
 
 	if err != nil {
 		err = errors.Wrapf(err,
-			"GetPool took a shit! Couldn't open connection to postgre database (%s)",
+			"Couldn't open connection to postgre database (%s)",
 			spew.Sdump(s.Db))
 	}
 
