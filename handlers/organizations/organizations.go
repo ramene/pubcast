@@ -1,15 +1,15 @@
 package organizations
 
 import (
-	"encoding/json"
+	//"encoding/json"
 	"net/http"
-	"net/url"
+	//"net/url"
 
 	"github.com/gorilla/mux"
-	"github.com/ramene/pubcast/data"
-	"github.com/ramene/pubcast/data/models"
-	"github.com/ramene/pubcast/handlers"
-	"github.com/ramene/pubcast/lib/activity"
+	//"github.com/ramene/pubcast/data"
+	//"github.com/ramene/pubcast/data/models"
+	//"github.com/ramene/pubcast/handlers"
+	//"github.com/ramene/pubcast/lib/activity"
 )
 
 // Get returns an Organization
@@ -29,9 +29,9 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad request, no slug in url", http.StatusBadRequest)
 		return
 	}
-
+/* 
 	// Attempt to grab the org
-	/* org, err := models.GetOrganization(data.GetPool(), slug)
+	org, err := models.GetOrganization(data.GetPool(), slug)
 
 	// 500 because something went wrong with the database
 	if err != nil {
@@ -50,7 +50,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	actor := activity.NewOrganization(org.Name, url)
 
 	// Turn the org into JSON
-	bytes, err := json.Marshal(actor) */
+	bytes, err := json.Marshal(actor)
 
 	// 500 because something went wrong marshaling the org
 	if err != nil {
@@ -59,5 +59,5 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Success!
-	// w.Write(bytes)
+	w.Write(bytes) */
 }
