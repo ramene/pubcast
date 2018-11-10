@@ -31,7 +31,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Attempt to grab the org
-	org, err := models.GetOrganization(data.GetPool(), slug)
+	/* org, err := models.GetOrganization(data.GetPool(), slug)
 
 	// 500 because something went wrong with the database
 	if err != nil {
@@ -50,7 +50,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	actor := activity.NewOrganization(org.Name, url)
 
 	// Turn the org into JSON
-	bytes, err := json.Marshal(actor)
+	bytes, err := json.Marshal(actor) */
 
 	// 500 because something went wrong marshaling the org
 	if err != nil {
@@ -59,5 +59,5 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Success!
-	w.Write(bytes)
+	// w.Write(bytes)
 }
